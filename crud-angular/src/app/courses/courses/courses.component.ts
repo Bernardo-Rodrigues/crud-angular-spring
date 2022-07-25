@@ -58,6 +58,10 @@ export class CoursesComponent implements OnInit {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
 
+  onEdit(id: number) {
+    this.router.navigate([`${id}/edit`], {relativeTo: this.route});
+  }
+
   onDelete(id: number) {
     this.coursesService.delete(id).subscribe()
     this.courses$ = this.list()
