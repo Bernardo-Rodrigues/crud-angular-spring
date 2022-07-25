@@ -2,12 +2,16 @@ package com.loiane.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import com.loiane.model.Course;
 import com.loiane.repository.CourseRepository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +44,12 @@ public class CourseController {
         return courseRepository.save(course);
         // return ResponseEntity.status(HttpStatus.CREATED)
         //     .body(courseRepository.save(course));
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable String id) {
+        courseRepository.deleteById(Long.valueOf(id));
+        return id;
     }
 
 }

@@ -29,13 +29,7 @@ export class CoursesComponent implements OnInit {
   ) {
     // this.courses = [];
     // this.coursesService = new CoursesService();
-    this.courses$ = this.coursesService.list()
-    .pipe(
-      catchError(error => {
-        this.onError('Erro ao carregar cursos.');
-        return of([])
-      })
-    );
+    this.courses$ = this.list()
 
     // this.coursesService.list().subscribe(courses => this.courses = courses);
   }
@@ -50,8 +44,23 @@ export class CoursesComponent implements OnInit {
 
   }
 
+  list(){
+    return this.coursesService.list()
+    .pipe(
+      catchError(error => {
+        this.onError('Erro ao carregar cursos.');
+        return of([])
+      })
+    );
+  }
+
   onAdd() {
     this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  onDelete(id: number) {
+    this.coursesService.delete(id).subscribe()
+    this.courses$ = this.list()
   }
 
 }
